@@ -68,6 +68,7 @@ def _get_dhcp_request_data(id_req, mac_address, requested_options,
 
 
 def _parse_dhcp_reply(data, id_req):
+    LOG.debug("%r", data)
     message_type = struct.unpack('b', data[0:1])[0]
 
     if message_type != 2:
@@ -138,6 +139,7 @@ def get_dhcp_options(dhcp_host, requested_options=[], timeout=5.0,
 
         data = _get_dhcp_request_data(id_req, mac_address, requested_options,
                                       vendor_id)
+        LOG.debug("sending data %r", data)
         s.send(data)
 
         start = datetime.datetime.now()
